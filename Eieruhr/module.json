@@ -1,0 +1,12 @@
+{
+    "id": "{17843F0A-BFC8-A4BA-E219-A2D10FC8E5BE}",
+    "name": "Eieruhr",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "EU",
+    "url": "https://github.com/symcon/Eieruhr"
+}

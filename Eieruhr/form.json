@@ -1,0 +1,14 @@
+{
+    "elements": [
+        {
+            "type": "SelectTime",
+            "caption": "Time",
+            "name": "Time"
+        },
+        {
+            "type": "NumberSpinner",
+            "caption": "Update Interval",
+            "name": "Interval"
+        }
+    ]
+}
