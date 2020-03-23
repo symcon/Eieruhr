@@ -2,8 +2,9 @@
     "translations": {
         "de": {
             "Eggtimer": "Eieruhr",
-            "Update Inteval": "Aktualisierungs Intervall",
-            "Remaining": "Verbleibend"
+            "Update Interval": "Aktualisierungsintervall",
+            "Remaining": "Verbleibend",
+            "Time": "Zeit"
         }
     }
 }
