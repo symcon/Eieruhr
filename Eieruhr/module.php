@@ -8,19 +8,18 @@ class Eieruhr extends IPSModule
         //Never delete this line!
         parent::Create();
 
-        //Profiles
-        //TODO?: Sart/Stop profile
-
         //Variables
         $this->RegisterVariableBoolean('Active', $this->Translate('Eggtimer'), '~Switch', 0);
         $this->EnableAction('Active');
-        $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 0);
+        $this->RegisterVariableInteger('Time', $this->Translate('Time'), '~UnixTimestampTime', 10);
+        $this->SetValue('Time', mktime(0, 10, 0));
+        $this->EnableAction('Time');
+        $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 20);
 
         //Timer
         $this->RegisterTimer('EggTimer', 0, 'EU_UpdateTimer($_IPS[\'TARGET\']);');
 
         //Properties
-        $this->RegisterPropertyString('Time', '{"hour":0,"minute":10,"second":0}');
         $this->RegisterPropertyInteger('Interval', 5);
 
         //Attributes
@@ -39,10 +38,10 @@ class Eieruhr extends IPSModule
         //Never delete this line!
         parent::ApplyChanges();
 
-        $time = json_decode($this->ReadPropertyString('Time'), true);
-        $this->SetValue('Remaining', sprintf('%02d:%02d:%02d', $time['hour'], $time['minute'], $time['second']));
-
-        $this->WriteAttributeInteger('TimeSeconds', $time['hour'] * 60 * 60 + $time['minute'] * 60 + $time['second']);
+        $this->StopTimer();
+        $this->SetValue('Active', false);
+        $time = $this->GetValue('Time');
+        $this->WriteAttributeInteger('TimeSeconds', date('H', $time) * 60 * 60 + date('i', $time) * 60 + date('s', $time));
     }
 
     public function RequestAction($Ident, $Value)
@@ -50,6 +49,11 @@ class Eieruhr extends IPSModule
         switch ($Ident) {
                 case 'Active':
                     $this->SetActive($Value);
+                    break;
+                case 'Time':
+                    $this->SetValue($Ident, $Value);
+                    $this->WriteAttributeInteger('TimeSeconds', date('H', $Value) * 60 * 60 + date('i', $Value) * 60 + date('s', $Value));
+                    $this->SetActive(false);
                     break;
                 default:
                     throw new Exception('Invalid ident');
@@ -62,9 +66,8 @@ class Eieruhr extends IPSModule
         if ($remaining >= $this->ReadAttributeInteger('TimeSeconds')) {
             $this->SetValue('Remaining', '00:00:00');
             $this->SetTimerInterval('EggTimer', 0);
-            sleep(2);
             $this->SetValue('Active', false);
-            $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds')));
+            $this->SetValue('Remaining', $this->Translate('Off'));
         } else {
             $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds') - $remaining));
             $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
@@ -85,16 +88,17 @@ class Eieruhr extends IPSModule
     {
         $this->WriteAttributeInteger('TimerStarted', time());
         $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
+        $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds')));
         $this->SendDebug('Timer-Info', 'Active', 0);
     }
 
     private function StopTimer()
     {
         $this->SetTimerInterval('EggTimer', 0);
-        $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds')));
+        $this->SetValue('Remaining', $this->Translate('Off'));
     }
 
-    private function StringifyTime(int $seconds = 0)
+    private function StringifyTime(int $seconds)
     {
         return sprintf('%02d:%02d:%02d', ($seconds / (60 * 60)), ($seconds / 60 % 60), $seconds % 60);
     }

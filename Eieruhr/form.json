@@ -1,14 +1,15 @@
 {
     "elements": [
         {
-            "type": "SelectTime",
-            "caption": "Time",
-            "name": "Time"
-        },
-        {
             "type": "NumberSpinner",
             "caption": "Update Interval",
-            "name": "Interval"
+            "name": "Interval",
+            "suffix": "Seconds"
+        }
+    ],
+    "actions": [
+        {
+            "type": "TestCenter"
         }
     ]
 }
