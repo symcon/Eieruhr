@@ -32,7 +32,7 @@ Beschreibung des Moduls.
 __Konfigurationsseite__:
 
 Name                     | Beschreibung
--------- ----------------| ------------------
+------------------------ | ------------------
 Aktualisierungsintervall | Der Intervall in dem die verbleibende Zeit aktualisiert wird
 TestCenter               | Hier können alle schaltbaren Statusvariablen geschaltet werden
 
@@ -46,7 +46,7 @@ Name             | Typ     | Beschreibung
 ---------------- | ------- | ------------
 Aktiv            | boolean | Legt fest ob die Eieruhr läuft oder nicht
 Zeit in Sekunden | integer | Die Dauer in Sekunden welche die Eieruhr läuft
-Verbleibend      | string  | Zeigt die verbleibende Zeit der laufenden Eieruhr an - sonst Aus
+Verbleibend      | string  | Zeigt die verbleibende Zeit der laufenden Eieruhr an
 
 #### Profile
 
