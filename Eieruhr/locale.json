@@ -4,9 +4,9 @@
             "Eggtimer": "Eieruhr",
             "Update Interval": "Aktualisierungsintervall",
             "Remaining": "Verbleibend",
-            "Time": "Zeit",
-            "Seconds": "Sekunden",
-            "Off": "Aus"
+            "Time in Seconds": "Zeit in Sekunden",
+            "Off": "Aus",
+            "Active": "Aktiv"
         }
     }
 }

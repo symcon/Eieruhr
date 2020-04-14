@@ -9,11 +9,13 @@ class Eieruhr extends IPSModule
         parent::Create();
 
         //Variables
-        $this->RegisterVariableBoolean('Active', $this->Translate('Eggtimer'), '~Switch', 0);
+        $this->RegisterVariableBoolean('Active', $this->Translate('Active'), '~Switch', 0);
         $this->EnableAction('Active');
-        $this->RegisterVariableInteger('Time', $this->Translate('Time'), '~UnixTimestampTime', 10);
-        $this->SetValue('Time', mktime(0, 10, 0));
+        
+        $this->RegisterVariableInteger('Time', $this->Translate('Time in Seconds'), '', 10);
         $this->EnableAction('Time');
+        $this->SetValue('Time', 600);
+
         $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 20);
 
         //Timer
@@ -24,7 +26,6 @@ class Eieruhr extends IPSModule
 
         //Attributes
         $this->RegisterAttributeInteger('TimerStarted', 0);
-        $this->RegisterAttributeInteger('TimeSeconds', 0);
     }
 
     public function Destroy()
@@ -40,8 +41,6 @@ class Eieruhr extends IPSModule
 
         $this->StopTimer();
         $this->SetValue('Active', false);
-        $time = $this->GetValue('Time');
-        $this->WriteAttributeInteger('TimeSeconds', date('H', $time) * 60 * 60 + date('i', $time) * 60 + date('s', $time));
     }
 
     public function RequestAction($Ident, $Value)
@@ -52,7 +51,6 @@ class Eieruhr extends IPSModule
                     break;
                 case 'Time':
                     $this->SetValue($Ident, $Value);
-                    $this->WriteAttributeInteger('TimeSeconds', date('H', $Value) * 60 * 60 + date('i', $Value) * 60 + date('s', $Value));
                     $this->SetActive(false);
                     break;
                 default:
@@ -63,13 +61,13 @@ class Eieruhr extends IPSModule
     public function UpdateTimer()
     {
         $remaining = time() - $this->ReadAttributeInteger('TimerStarted');
-        if ($remaining >= $this->ReadAttributeInteger('TimeSeconds')) {
+        if ($remaining >= $this->GetValue('Time')) {
             $this->SetValue('Remaining', '00:00:00');
             $this->SetTimerInterval('EggTimer', 0);
             $this->SetValue('Active', false);
             $this->SetValue('Remaining', $this->Translate('Off'));
         } else {
-            $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds') - $remaining));
+            $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time') - $remaining));
             $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
         }
     }
@@ -88,7 +86,7 @@ class Eieruhr extends IPSModule
     {
         $this->WriteAttributeInteger('TimerStarted', time());
         $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
-        $this->SetValue('Remaining', $this->StringifyTime($this->ReadAttributeInteger('TimeSeconds')));
+        $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time')));
         $this->SendDebug('Timer-Info', 'Active', 0);
     }
 
