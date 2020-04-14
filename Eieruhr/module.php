@@ -62,7 +62,6 @@ class Eieruhr extends IPSModule
     {
         $remaining = time() - $this->ReadAttributeInteger('TimerStarted');
         if ($remaining >= $this->GetValue('Time')) {
-            $this->SetValue('Remaining', '00:00:00');
             $this->SetTimerInterval('EggTimer', 0);
             $this->SetValue('Active', false);
             $this->SetValue('Remaining', $this->Translate('Off'));
