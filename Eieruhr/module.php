@@ -11,7 +11,7 @@ class Eieruhr extends IPSModule
         //Variables
         $this->RegisterVariableBoolean('Active', $this->Translate('Active'), '~Switch', 0);
         $this->EnableAction('Active');
-        
+
         $this->RegisterVariableInteger('Time', $this->Translate('Time in Seconds'), '', 10);
         $this->EnableAction('Time');
         $this->SetValue('Time', 600);
