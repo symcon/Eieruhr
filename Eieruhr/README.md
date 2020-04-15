@@ -14,6 +14,8 @@ Eine Eieruhr, die eine gewisse Zeit läuft und jederzeit wieder aufgezogen werde
 ### 1. Funktionsumfang
 
 * Eine einfache Eieruhr
+* Jederzeit wieder aufziehbar
+* Läuft eine einstellbare Zeit
 * Kontrollierbar über das WebFront 
 * Einfache Integration in Ereignisse und Skripte über die Aktiv-Variable
 
@@ -34,7 +36,7 @@ __Konfigurationsseite__:
 
 Name                     | Beschreibung
 ------------------------ | ------------------
-Aktualisierungsintervall | Der Intervall in dem die verbleibende Zeit aktualisiert wird
+Aktualisierungsintervall | Der Intervall in dem die verbleibende Zeit aktualisiert wird (Wenn der gewählte Intervall größer als die verbleibende Zeit ist, wird "Aktiv" erst dann wieder auf false gesetzt, wenn der Intervall abgelaufen ist
 
 ### 5. Statusvariablen und Profile
 
@@ -44,8 +46,8 @@ Die Statusvariablen/Kategorien werden automatisch angelegt. Das Löschen einzeln
 
 Name             | Typ     | Beschreibung
 ---------------- | ------- | ------------
-Aktiv            | boolean | Legt fest ob die Eieruhr läuft oder nicht
-Zeit in Sekunden | integer | Die Dauer in Sekunden welche die Eieruhr läuft
+Aktiv            | boolean | Legt fest ob die Eieruhr läuft oder nicht; Erneutes Setzen startet die Uhr neu
+Zeit in Sekunden | integer | Die Dauer in Sekunden welche die Eieruhr läuft; Nach Ablauf der Zeit wird "Aktiv" auf false gesetzt 
 Verbleibend      | string  | Zeigt die verbleibende Zeit der laufenden Eieruhr an
 
 #### Profile
