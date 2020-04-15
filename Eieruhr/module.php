@@ -46,16 +46,18 @@ class Eieruhr extends IPSModule
     public function RequestAction($Ident, $Value)
     {
         switch ($Ident) {
-                case 'Active':
-                    $this->SetActive($Value);
-                    break;
-                case 'Time':
-                    $this->SetValue($Ident, $Value);
-                    $this->SetActive(false);
-                    break;
-                default:
-                    throw new Exception('Invalid ident');
-            }
+            case 'Active':
+                $this->SetActive($Value);
+                break;
+
+            case 'Time':
+                $this->SetValue($Ident, $Value);
+                $this->SetActive(false);
+                break;
+
+            default:
+                throw new Exception('Invalid ident');
+        }
     }
 
     public function UpdateTimer()
@@ -70,6 +72,7 @@ class Eieruhr extends IPSModule
             $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
         }
     }
+
     private function SetActive($active)
     {
         if ($active) {
