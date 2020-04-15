@@ -6,5 +6,5 @@
 
 Folgende Module beinhaltet das Eieruhr Repository:
 
-- __Eieruhr__ ([Dokumentation](Eieruhr))
+- __Eieruhr__ ([Dokumentation](Eieruhr))  
 	Eine Eieruhr, die eine gewisse Zeit läuft und jederzeit wieder aufgezogen werden kann. Ideal für die Verwendung in Ereignissen und Skripten.
