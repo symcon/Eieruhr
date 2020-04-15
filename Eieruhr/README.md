@@ -1,5 +1,5 @@
 # Eieruhr
-Beschreibung des Moduls.
+Eine Eieruhr, die eine gewisse Zeit läuft und jederzeit wieder aufgezogen werden kann. Ideal für die Verwendung in Ereignissen und Skripten.
 
 ### Inhaltsverzeichnis
 
@@ -15,6 +15,7 @@ Beschreibung des Moduls.
 
 * Eine einfache Eieruhr
 * Kontrollierbar über das WebFront 
+* Einfache Integration in Ereignisse und Skripte über die Aktiv-Variable
 
 ### 2. Vorraussetzungen
 
@@ -34,7 +35,6 @@ __Konfigurationsseite__:
 Name                     | Beschreibung
 ------------------------ | ------------------
 Aktualisierungsintervall | Der Intervall in dem die verbleibende Zeit aktualisiert wird
-TestCenter               | Hier können alle schaltbaren Statusvariablen geschaltet werden
 
 ### 5. Statusvariablen und Profile
 
