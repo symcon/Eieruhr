@@ -36,7 +36,7 @@ __Konfigurationsseite__:
 
 Name                     | Beschreibung
 ------------------------ | ------------------
-Aktualisierungsintervall | Der Intervall in dem die verbleibende Zeit aktualisiert wird (Wenn der gewählte Intervall größer als die verbleibende Zeit ist, wird "Aktiv" erst dann wieder auf false gesetzt, wenn der Intervall abgelaufen ist)
+Aktualisierungsintervall | Das Intervall in dem die verbleibende Zeit aktualisiert wird (Wenn das gewählte Intervall größer als die verbleibende Zeit ist, wird "Aktiv" erst dann wieder auf false gesetzt, wenn das Intervall abgelaufen ist)
 
 ### 5. Statusvariablen und Profile
 
