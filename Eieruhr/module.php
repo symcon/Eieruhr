@@ -14,8 +14,9 @@ class Eieruhr extends IPSModule
 
         $this->RegisterVariableInteger('Time', $this->Translate('Time in Seconds'), '', 10);
         $this->EnableAction('Time');
-        $this->SetValue('Time', 600);
-
+        if ($this->GetValue('Time') == 0) {
+            $this->SetValue('Time', 600);
+        }
         $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 20);
 
         //Timer
@@ -39,8 +40,7 @@ class Eieruhr extends IPSModule
         //Never delete this line!
         parent::ApplyChanges();
 
-        $this->StopTimer();
-        $this->SetValue('Active', false);
+        $this->UpdateTimer();
     }
 
     public function RequestAction($Ident, $Value)
@@ -62,14 +62,19 @@ class Eieruhr extends IPSModule
 
     public function UpdateTimer()
     {
+        if (!$this->GetValue('Active')) {
+            return;
+        }
         $remaining = time() - $this->ReadAttributeInteger('TimerStarted');
         if ($remaining >= $this->GetValue('Time')) {
-            $this->SetTimerInterval('EggTimer', 0);
+            $this->SetTimerInterval('EggTimer', $remaining);
             $this->SetValue('Active', false);
             $this->SetValue('Remaining', $this->Translate('Off'));
         } else {
             $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time') - $remaining));
-            $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
+            //The interval must not be greater than the remaining time
+            $newInterval = $this->ReadPropertyInteger('Interval') > $remaining ? $remaining : $this->ReadPropertyInteger('Interval');
+            $this->SetTimerInterval('EggTimer', $newInterval * 1000);
         }
     }
 
@@ -87,7 +92,9 @@ class Eieruhr extends IPSModule
     private function StartTimer()
     {
         $this->WriteAttributeInteger('TimerStarted', time());
-        $this->SetTimerInterval('EggTimer', $this->ReadPropertyInteger('Interval') * 1000);
+        //Update intervalls maximum must not be greater than the time
+        $newInterval = $this->ReadPropertyInteger('Interval') > $this->GetValue('Time') ? $this->GetValue('Time') : $this->ReadPropertyInteger('Interval');
+        $this->SetTimerInterval('EggTimer', $newInterval * 1000);
         $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time')));
         $this->SendDebug('Timer-Info', 'Active', 0);
     }
