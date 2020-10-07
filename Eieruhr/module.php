@@ -65,13 +65,11 @@ class Eieruhr extends IPSModule
         if (!$this->GetValue('Active')) {
             return;
         }
-        $remaining = time() - $this->ReadAttributeInteger('TimerStarted');
-        if ($remaining >= $this->GetValue('Time')) {
-            $this->SetTimerInterval('EggTimer', $remaining);
-            $this->SetValue('Active', false);
-            $this->SetValue('Remaining', $this->Translate('Off'));
+        $remaining = $this->GetValue('Time') - (time() - $this->ReadAttributeInteger('TimerStarted'));
+        if ($remaining <= 0) {
+            $this->StopTimer();
         } else {
-            $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time') - $remaining));
+            $this->SetValue('Remaining', $this->StringifyTime($remaining));
             //The interval must not be greater than the remaining time
             $newInterval = $this->ReadPropertyInteger('Interval') > $remaining ? $remaining : $this->ReadPropertyInteger('Interval');
             $this->SetTimerInterval('EggTimer', $newInterval * 1000);
@@ -80,29 +78,26 @@ class Eieruhr extends IPSModule
 
     private function SetActive($active)
     {
+        $this->SetValue('Active', $active);
         if ($active) {
             $this->StartTimer();
         } else {
             $this->StopTimer();
         }
-
-        $this->SetValue('Active', $active);
     }
 
     private function StartTimer()
     {
         $this->WriteAttributeInteger('TimerStarted', time());
-        //Update intervalls maximum must not be greater than the time
-        $newInterval = $this->ReadPropertyInteger('Interval') > $this->GetValue('Time') ? $this->GetValue('Time') : $this->ReadPropertyInteger('Interval');
-        $this->SetTimerInterval('EggTimer', $newInterval * 1000);
-        $this->SetValue('Remaining', $this->StringifyTime($this->GetValue('Time')));
-        $this->SendDebug('Timer-Info', 'Active', 0);
+        $this->UpdateTimer();
     }
 
     private function StopTimer()
     {
         $this->SetTimerInterval('EggTimer', 0);
         $this->SetValue('Remaining', $this->Translate('Off'));
+        $this->WriteAttributeInteger('TimerStarted', 0);
+        $this->SetValue('Active', false);
     }
 
     private function StringifyTime(int $seconds)
