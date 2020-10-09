@@ -71,8 +71,7 @@ class Eieruhr extends IPSModule
         } else {
             $this->SetValue('Remaining', $this->StringifyTime($remaining));
             //The interval must not be greater than the remaining time
-            $newInterval = $this->ReadPropertyInteger('Interval') > $remaining ? $remaining : $this->ReadPropertyInteger('Interval');
-            $this->SetTimerInterval('EggTimer', $newInterval * 1000);
+            $this->SetTimerInterval('EggTimer', min($this->ReadPropertyInteger('Interval'), $remaining) * 1000);
         }
     }
 
