@@ -52,7 +52,7 @@ class Eieruhr extends IPSModule
 
             case 'Time':
                 $this->SetValue($Ident, $Value);
-                $this->SetActive(false);
+                $this->StartTimer();
                 break;
 
             default:
