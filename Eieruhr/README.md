@@ -19,7 +19,7 @@ Eine Eieruhr, die eine gewisse Zeit läuft und jederzeit wieder aufgezogen werde
 * Kontrollierbar über das WebFront 
 * Einfache Integration in Ereignisse und Skripte über die Aktiv-Variable
 
-### 2. Vorraussetzungen
+### 2. Voraussetzungen
 
 - IP-Symcon ab Version 5.0
 
