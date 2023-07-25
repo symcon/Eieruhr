@@ -18,6 +18,12 @@ class Eieruhr extends IPSModule
             $this->SetValue('Time', 600);
         }
         $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 20);
+        $this->RegisterVariableBoolean('Canceled', $this->Translate('Canceled'), 'Eieruhr.Canceled', 30);
+        if (!IPS_VariableProfileExists('Eieruhr.Canceled')) {
+            IPS_CreateVariableProfile('Eieruhr.Canceled', VARIABLETYPE_BOOLEAN);
+            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', false, $this->Translate('Expired'), 'Clock', 0x00FF00);
+            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', true, $this->Translate('Canceled'), 'Close', 0xFF0000);
+        }
 
         //Timer
         $this->RegisterTimer('EggTimer', 0, 'EU_UpdateTimer($_IPS[\'TARGET\']);');
@@ -79,8 +85,10 @@ class Eieruhr extends IPSModule
     {
         $this->SetValue('Active', $active);
         if ($active) {
+            $this->SetValue('Canceled', false);
             $this->StartTimer();
         } else {
+            $this->SetValue('Canceled', true);
             $this->StopTimer();
         }
     }

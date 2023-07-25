@@ -7,7 +7,9 @@
             "Time in Seconds": "Zeit in Sekunden",
             "Off": "Aus",
             "Active": "Aktiv",
-            "Seconds": "Sekunden"
+            "Seconds": "Sekunden",
+            "Canceled": "Abgebrochen",
+            "Expired": "Abgelaufen"
         }
     }
 }

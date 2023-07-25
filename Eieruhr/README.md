@@ -49,6 +49,7 @@ Name             | Typ     | Beschreibung
 Aktiv            | boolean | Legt fest ob die Eieruhr läuft oder nicht; Erneutes Setzen startet die Uhr neu
 Zeit in Sekunden | integer | Die Dauer in Sekunden welche die Eieruhr läuft; Nach Ablauf der Zeit wird "Aktiv" auf false gesetzt 
 Verbleibend      | string  | Zeigt die verbleibende Zeit der laufenden Eieruhr an
+Abgebrochen      | boolean | Zeigt an ob die Variable Aktiv vor Ablauf der Zeit wieder ausgeschaltet und somit der Timer abgebrochen wurde.
 
 #### Profile
 
