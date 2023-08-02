@@ -18,12 +18,14 @@ class Eieruhr extends IPSModule
             $this->SetValue('Time', 600);
         }
         $this->RegisterVariableString('Remaining', $this->Translate('Remaining'), '', 20);
-        $this->RegisterVariableBoolean('Canceled', $this->Translate('Canceled'), 'Eieruhr.Canceled', 30);
+
         if (!IPS_VariableProfileExists('Eieruhr.Canceled')) {
-            IPS_CreateVariableProfile('Eieruhr.Canceled', VARIABLETYPE_BOOLEAN);
-            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', false, $this->Translate('Expired'), 'Clock', 0x00FF00);
-            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', true, $this->Translate('Canceled'), 'Close', 0xFF0000);
+            IPS_CreateVariableProfile('Eieruhr.Canceled', VARIABLETYPE_INTEGER);
+            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', 0, $this->Translate('Expired'), 'Clock', 0x00FF00);
+            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', 1, $this->Translate('Canceled'), 'Close', 0xFF0000);
+            IPS_SetVariableProfileAssociation('Eieruhr.Canceled', 2, $this->Translate('Running'), 'Clock', 0xFF0000);
         }
+        $this->RegisterVariableInteger('Canceled', $this->Translate('Canceled'), 'Eieruhr.Canceled', 30);
 
         //Timer
         $this->RegisterTimer('EggTimer', 0, 'EU_UpdateTimer($_IPS[\'TARGET\']);');
@@ -74,6 +76,7 @@ class Eieruhr extends IPSModule
         $remaining = $this->GetValue('Time') - (time() - $this->ReadAttributeInteger('TimerStarted'));
         if ($remaining <= 0) {
             $this->StopTimer();
+            $this->SetValue('Canceled', 0);
         } else {
             $this->SetValue('Remaining', $this->StringifyTime($remaining));
             //The interval must not be greater than the remaining time
@@ -85,10 +88,10 @@ class Eieruhr extends IPSModule
     {
         $this->SetValue('Active', $active);
         if ($active) {
-            $this->SetValue('Canceled', false);
+            $this->SetValue('Canceled', 2);
             $this->StartTimer();
         } else {
-            $this->SetValue('Canceled', true);
+            $this->SetValue('Canceled', 1);
             $this->StopTimer();
         }
     }

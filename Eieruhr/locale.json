@@ -9,7 +9,8 @@
             "Active": "Aktiv",
             "Seconds": "Sekunden",
             "Canceled": "Abgebrochen",
-            "Expired": "Abgelaufen"
+            "Expired": "Abgelaufen",
+            "Running": "Läuft"
         }
     }
 }
