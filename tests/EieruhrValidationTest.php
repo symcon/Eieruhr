@@ -8,8 +8,8 @@ class EieruhrValidationTest extends TestCaseSymconValidation
     {
         $this->validateLibrary(__DIR__ . '/..');
     }
-    public function testValidateEieruhrModule(): void
+    public function testValidateEggTimerModule(): void
     {
-        $this->validateModule(__DIR__ . '/../Eieruhr');
+        $this->validateModule(__DIR__ . '/../EggTimer');
     }
 }
