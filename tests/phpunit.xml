@@ -6,7 +6,7 @@
   </php>
   <source>
     <include>
-      <directory suffix=".php">../Eieruhr</directory>
+      <directory suffix=".php">../EggTimer</directory>
     </include>
   </source>
 </phpunit>

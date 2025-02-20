@@ -1,6 +1,6 @@
 {
     "id": "{17843F0A-BFC8-A4BA-E219-A2D10FC8E5BE}",
-    "name": "Eieruhr",
+    "name": "Egg Timer",
     "type": 3,
     "vendor": "",
     "aliases": [],
@@ -8,5 +8,5 @@
     "childRequirements": [],
     "implemented": [],
     "prefix": "EU",
-    "url": "https://github.com/symcon/Eieruhr"
+    "url": "https://www.symcon.de/en/service/documentation/module-reference/egg-timer/"
 }
