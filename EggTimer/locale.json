@@ -8,6 +8,9 @@
             "Off": "Aus",
             "Active": "Aktiv",
             "Seconds": "Sekunden",
+            "Canceled": "Abgebrochen",
+            "Expired": "Abgelaufen",
+            "Running": "Läuft",
             "https://www.symcon.de/en/service/documentation/module-reference/egg-timer/": "https://www.symcon.de/de/service/dokumentation/modulreferenz/eieruhr/",
             "Egg Timer": "Eieruhr"
         }
