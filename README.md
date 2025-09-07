@@ -6,5 +6,5 @@
 
 Folgende Module beinhaltet das Eieruhr Repository:
 
-- __Eieruhr__ ([Dokumentation](https://www.symcon.de/de/service/dokumentation/modulreferenz/eieruhr))  
+- __Eieruhr__ ([Dokumentation](https://www.symcon.de/de/service/dokumentation/modulreferenz/eieruhr/))  
 	Eine Eieruhr, die eine gewisse Zeit läuft und jederzeit wieder aufgezogen werden kann. Ideal für die Verwendung in Ereignissen und Skripten.
